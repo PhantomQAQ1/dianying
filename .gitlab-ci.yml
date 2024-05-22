@@ -1,0 +1,21 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build_job:
+  stage: build
+  script:
+    - docker build -t my-app .
+
+test_job:
+  stage: test
+  script:
+    - docker run my-app test-suite
+
+deploy_job:
+  stage: deploy
+  script:
+    - docker-compose up -d
+  environment:
+    name: production
